@@ -32,6 +32,11 @@ class DataCleanup:
         #Fix cell prefix for invalid values
         data['CellPrefix'] = self.validate_cell_prefix(self.data)
         
+        data['Dealer'] = self.reduce_cardinality(data['Dealer'], 30)
+        data['Domain'] = self.reduce_cardinality(data['Domain'], 15)
+        data['InterestMake'] = self.reduce_cardinality(data['InterestMake'], 20)
+        data['InterestModel'] = self.reduce_cardinality(data['InterestModel'], 20)
+
         #replace Nan values
         #NOTE: we have only used personal emails we have to use the company ones after
         Imputer = SimpleImputer(strategy='most_frequent')
@@ -62,14 +67,20 @@ class DataCleanup:
       matched_values_to_int = matched_values.astype(int)
       
       return matched_values_to_int
+    
+    #Reduce the number of unique values in cols
+    def reduce_cardinality(self, col, top_n=20):
+        top = col.value_counts().nlargest(top_n).index
+        return col.where(col.isin(top), 'Other')
 
 
-     
+'''  
 Model = DataCleanup('train')
 cleaned_train = Model.cleanData('train')
 print("Number of null values:", cleaned_train.isnull().sum().sum())
 
 print(cleaned_train)
+'''
 
             
             
