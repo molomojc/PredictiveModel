@@ -29,11 +29,11 @@ class DataCleanup:
         data = pd.DataFrame(Imputer.fit_transform(data), columns=data.columns)
        
         data['Domain'] = data['Domain'].str.extract(r'@([a-zA-Z0-9.-]+\.(?:com|co\.za|ac\.za|gov\.za))', expand=False)
-        #Fix cell prefix for invalid values
+       #Fix cell prefix for invalid values
         data['CellPrefix'] = self.validate_cell_prefix(self.data)
         
-       # data['Dealer'] = self.reduce_cardinality(data['Dealer'], 30)
-       # data['Domain'] = self.reduce_cardinality(data['Domain'], 15)
+        data['Dealer'] = self.reduce_cardinality(data['Dealer'], 30)
+        data['Domain'] = self.reduce_cardinality(data['Domain'], 15)
         data['InterestMake'] = self.reduce_cardinality(data['InterestMake'], 20)
         data['InterestModel'] = self.reduce_cardinality(data['InterestModel'], 20)
 
@@ -74,13 +74,12 @@ class DataCleanup:
         return col.where(col.isin(top), 'Other')
 
 
-'''  
 Model = DataCleanup('train')
 cleaned_train = Model.cleanData('train')
 print("Number of null values:", cleaned_train.isnull().sum().sum())
 
 print(cleaned_train)
-'''
+
 
             
             

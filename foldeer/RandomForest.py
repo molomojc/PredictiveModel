@@ -22,6 +22,7 @@ X_categorical = X[['LeadType', 'LeadSource', 'CellPrefix', 'Domain', 'Dealer', '
 # One-hot encode categorical features
 encoder = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
 encoded_array = encoder.fit_transform(X_categorical)
+
 encoded_cols = encoder.get_feature_names_out()
 X_cat_df = pd.DataFrame(encoded_array, columns=encoded_cols, index=X.index)
 
