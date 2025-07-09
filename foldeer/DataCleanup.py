@@ -32,8 +32,8 @@ class DataCleanup:
         #Fix cell prefix for invalid values
         data['CellPrefix'] = self.validate_cell_prefix(self.data)
         
-        data['Dealer'] = self.reduce_cardinality(data['Dealer'], 30)
-        data['Domain'] = self.reduce_cardinality(data['Domain'], 15)
+       # data['Dealer'] = self.reduce_cardinality(data['Dealer'], 30)
+       # data['Domain'] = self.reduce_cardinality(data['Domain'], 15)
         data['InterestMake'] = self.reduce_cardinality(data['InterestMake'], 20)
         data['InterestModel'] = self.reduce_cardinality(data['InterestModel'], 20)
 
